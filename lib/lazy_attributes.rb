@@ -1,3 +1,5 @@
+require 'active_record'
+
 module DerGuteMoritz
   module ActiveRecord
     module LazyAttributes
@@ -32,7 +34,7 @@ module DerGuteMoritz
         
         def default_select_with_lazy_attributes(qualified)
           if lazy_attributes.empty?
-            default_select_with_lazy_attributes(qualified)
+            default_select_without_lazy_attributes(qualified)
           else
             if qualified
               eager_attributes.map { |a| "#{quoted_table_name}.#{a}"  }
