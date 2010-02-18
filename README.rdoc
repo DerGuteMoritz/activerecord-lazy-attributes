@@ -4,6 +4,17 @@ This ActiveRecord extension allows to define attributes to be
 lazy-loaded. It's main purpose is to avoid loading large columns (such
 as BLOBs) with every SELECT.
 
+== Loading
+
+To use it in a Rails application, add this line to your environment.rb (or similar):
+
+  config.gem 'activerecord-lazy-attributes', :lib => 'lazy_attributes'
+
+Otherwise:
+
+  gem 'activerecord-lazy-attributes'
+  require 'lazy_attributes'
+
 == Example
 
   class Image < ActiveRecord::Base
