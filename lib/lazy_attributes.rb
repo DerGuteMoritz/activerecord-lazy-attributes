@@ -23,7 +23,7 @@ module DerGuteMoritz
 
           normalized_attrs.each do |attr|
             define_method attr do
-              @attributes[attr] ||= connection.select_value('SELECT %s FROM %s WHERE %s = %s' % [connection.quote_column_name(attr), self.class.quoted_table_name, self.class.primary_key, quoted_id])
+              write_attribute(attr, connection.select_value('SELECT %s FROM %s WHERE %s = %s' % [connection.quote_column_name(attr), self.class.quoted_table_name, self.class.primary_key, quoted_id])) unless has_attribute?(attr)
               read_attribute(attr)
             end
           end
