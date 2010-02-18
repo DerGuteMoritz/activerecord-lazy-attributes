@@ -4,6 +4,10 @@ This ActiveRecord extension allows to define attributes to be
 lazy-loaded. It's main purpose is to avoid loading large columns (such
 as BLOBs) with every SELECT.
 
+== Installation
+
+  gem install activerecord-lazy-attributes
+
 == Loading
 
 To use it in a Rails application, add this line to your environment.rb (or similar):
@@ -26,8 +30,7 @@ Otherwise:
 
 == Credit
 
-This is based on
-http://refactormycode.com/codes/219-activerecord-lazy-attribute-loading-plugin-for-rails
+This is based on {this refactoring request}[link:http://refactormycode.com/codes/219-activerecord-lazy-attribute-loading-plugin-for-rails]
 (the code here is the last contribution to this refactoring).
 
 == Note on Patches/Pull Requests
