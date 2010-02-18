@@ -23,9 +23,13 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "activerecord-lazy-attributes.gemspec",
      "init.rb",
      "lib/lazy_attributes.rb",
      "rails/init.rb",
+     "spec/lazy_attributes_spec.rb",
+     "spec/models/image.rb",
+     "spec/schema.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
   ]
@@ -36,7 +40,9 @@ Gem::Specification.new do |s|
   s.summary = %q{An ActiveRecord extension which allows attributes to be lazy-loaded}
   s.test_files = [
     "spec/spec_helper.rb",
-     "spec/activerecord-lazy-attributes_spec.rb"
+     "spec/models/image.rb",
+     "spec/schema.rb",
+     "spec/lazy_attributes_spec.rb"
   ]
 
   if s.respond_to? :specification_version then
