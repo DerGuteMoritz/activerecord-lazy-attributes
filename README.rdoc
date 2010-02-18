@@ -30,7 +30,7 @@ Otherwise:
 
 == Credit
 
-This is based on {this refactoring request}[link:http://refactormycode.com/codes/219-activerecord-lazy-attribute-loading-plugin-for-rails]
+This is based on {this refactoring request}[http://refactormycode.com/codes/219-activerecord-lazy-attribute-loading-plugin-for-rails]
 (the code here is the last contribution to this refactoring).
 
 == Note on Patches/Pull Requests
