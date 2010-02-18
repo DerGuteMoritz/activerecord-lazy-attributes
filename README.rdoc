@@ -6,12 +6,12 @@ as BLOBs) with every SELECT.
 
 == Example
 
-class Image < ActiveRecord::Base
-  attr_lazy :data
-end
+  class Image < ActiveRecord::Base
+    attr_lazy :data
+  end
 
-i = Image.first # this selects all columns except "data"
-i.data # "data" column is selected separately
+  i = Image.first # this selects all columns except "data"
+  i.data # "data" column is selected separately
 
 == Credit
 
