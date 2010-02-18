@@ -1,0 +1,1 @@
+require 'lazy_attributes'
