@@ -8,10 +8,13 @@ module DerGuteMoritz
         base.class_eval do
           class_inheritable_accessor :lazy_attributes
           class_inheritable_accessor :eager_attributes
+          class_inheritable_accessor :eager_attributes_quoted
           self.lazy_attributes = []
           extend ClassMethods
           metaclass.alias_method_chain :default_select, :lazy_attributes
         end
+
+        ::ActiveRecord::Associations::ClassMethods::JoinDependency::JoinBase.send :include, JoinBase
       end
 
       module ClassMethods
@@ -19,7 +22,8 @@ module DerGuteMoritz
         def attr_lazy(*attrs)
           normalized_attrs = attrs.map { |a| a.to_s }
           self.lazy_attributes += normalized_attrs
-          self.eager_attributes = (column_names - lazy_attributes).map { |a| connection.quote_column_name(a) }
+          self.eager_attributes = (column_names - lazy_attributes)
+          self.eager_attributes_quoted = eager_attributes.map { |a| connection.quote_column_name(a) }
 
           normalized_attrs.each do |attr|
             define_method attr do
@@ -37,13 +41,29 @@ module DerGuteMoritz
             default_select_without_lazy_attributes(qualified)
           else
             if qualified
-              eager_attributes.map { |a| "#{quoted_table_name}.#{a}"  }
+              eager_attributes_quoted.map { |a| "#{quoted_table_name}.#{a}"  }
             else
-              eager_attributes
+              eager_attributes_quoted
             end.join(', ')
           end
         end
         
+      end
+
+      module JoinBase
+
+        def self.included(base)
+          base.send :alias_method_chain, :column_names, :lazy_attributes
+        end
+        
+        def column_names_with_lazy_attributes
+          if active_record.lazy_attributes.empty?
+            column_names_without_lazy_attributes
+          else
+            active_record.eager_attributes
+          end
+        end
+
       end
       
     end
