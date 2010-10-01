@@ -23,4 +23,10 @@ describe DerGuteMoritz::ActiveRecord::LazyAttributes do
     i.should have_attribute('data')
   end
   
+  it 'should provide a predicate that checks agains the database if the lazy attribute has not been loaded yet' do 
+    i = Image.find(@id)
+    i.data?.should be_true
+    i.should_not have_attribute('data')
+  end
+  
 end

@@ -1,3 +1,4 @@
+gem 'activerecord', '~> 2.3'
 require 'active_record'
 
 module DerGuteMoritz
@@ -11,7 +12,7 @@ module DerGuteMoritz
           class_inheritable_accessor :eager_attributes_quoted
           self.lazy_attributes = []
           extend ClassMethods
-          metaclass.alias_method_chain :default_select, :lazy_attributes
+          send(respond_to?(:singleton_class) ? :singleton_class : :metaclass).alias_method_chain :default_select, :lazy_attributes
         end
 
         ::ActiveRecord::Associations::ClassMethods::JoinDependency::JoinBase.send :include, JoinBase
@@ -29,6 +30,14 @@ module DerGuteMoritz
             define_method attr do
               write_attribute(attr, connection.select_value('SELECT %s FROM %s WHERE %s = %s' % [connection.quote_column_name(attr), self.class.quoted_table_name, self.class.primary_key, quoted_id])) unless has_attribute?(attr)
               read_attribute(attr)
+            end
+
+            define_method "#{attr}?" do
+              if new_record? || has_attribute?(attr)
+                !!send(attr)
+              else
+                self.class.exists? ["#{self.class.primary_key} = ? AND #{connection.quote_column_name(attr)} IS NOT NULL", id]
+              end
             end
           end
 
