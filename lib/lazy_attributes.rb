@@ -21,6 +21,7 @@ module DerGuteMoritz
       module ClassMethods
 
         def attr_lazy(*attrs)
+          return unless table_exists?
           normalized_attrs = attrs.map { |a| a.to_s }
           self.lazy_attributes += normalized_attrs
           self.eager_attributes = (column_names - lazy_attributes)

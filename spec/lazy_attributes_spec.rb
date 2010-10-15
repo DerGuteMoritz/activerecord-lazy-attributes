@@ -28,5 +28,13 @@ describe DerGuteMoritz::ActiveRecord::LazyAttributes do
     i.data?.should be_true
     i.should_not have_attribute('data')
   end
+
+  it 'should not fail for non-existing tables' do
+    lambda do 
+      class Foo < ActiveRecord::Base
+        attr_lazy :bar
+      end
+    end.should_not raise_error
+  end
   
 end
