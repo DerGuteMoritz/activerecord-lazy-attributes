@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{activerecord-lazy-attributes}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Moritz Heidkamp"]
-  s.date = %q{2010-10-01}
+  s.date = %q{2010-10-15}
   s.description = %q{A useful ActiveRecord extension to handle columns containing large amounts of data}
   s.email = %q{moritz@twoticketsplease.de}
   s.extra_rdoc_files = [
